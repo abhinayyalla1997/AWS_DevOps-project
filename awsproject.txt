@@ -1,0 +1,51 @@
+1)aws project (report usage of aws resources) using shell scripting with cronjob
+
+steps:
+
+1)ssh into ec2 instance by command
+
+ssh -i <path to .pem file> user@ipaddress
+
+ex:- ssh -i /user/accounts/downloads/devops.pem ec2-user@177.44.44.4
+
+2)create one file with .sh extension
+
+3) vi file.sh
+
+#!/bin/bash
+
+#this script will report the aws resource usage
+#AWS S3
+#AWS EC2
+#AWS Lambda
+#AWS IAM Users
+
+set -x
+
+# list s3 buckets 
+echo "print list of s3 buckets"
+aws s3 ls
+
+#list ec2 instances
+echo "print list of ec2 instance"
+aws ec2 describe-instances | jq '.Reservations[].Instances[].InstanceId'
+
+#list lambda
+echo "print list of lambda functions"
+aws lambda list-functions
+
+#list IAM users
+echo "print list of IAM Users"
+aws iam list-users
+
+
+note:- 
+      so, we use aws cli to interact with aws and report the resources of aws services like ec2,s3,lambda,iam users.
+
+we can refer aws cli reference for commands of various services for using aws cli
+
+SET -X
+
+
+In a shell script, the command "set -x" is used to enable the shell's debugging mode. When this option is enabled, the shell displays each command before executing it, providing a trace of the script's execution. This can be helpful for troubleshooting and understanding how the script is being executed.
+
